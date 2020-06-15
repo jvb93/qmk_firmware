@@ -16,14 +16,19 @@
 #include QMK_KEYBOARD_H
 #include <print.h>
 
+
 enum encoder_names {
   _TOP,
+};
+
+enum custom_keycodes {
+    RELEASE_GO_LEFT = SAFE_RANGE,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   
     [0] = LAYOUT(
-        KC_MPRV, KC_MPLY, KC_MUTE, KC_MNXT
+        KC_MPRV, KC_MPLY, RELEASE_GO_LEFT, KC_MNXT
     )
 };
 
@@ -36,3 +41,14 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         }
     }
 }
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case RELEASE_GO_LEFT:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTL(SS_LALT(SS_TAP(X_HOME))) SS_LCTL(SS_RWIN(SS_TAP(X_LEFT))));
+            }
+            break;
+    }
+    return true;
+};

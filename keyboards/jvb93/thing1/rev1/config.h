@@ -36,8 +36,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { D7, D0, D4, E6 }, \
 }
 
-#define ENCODERS_PAD_A { D1 }
-#define ENCODERS_PAD_B { F5 }
+#define ENCODERS_PAD_A { F5 }
+#define ENCODERS_PAD_B { D1 }
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
