@@ -26,29 +26,33 @@ enum custom_keycodes {
     CLEAN,
     REBUILD,
     SCREENSHOT,
+    PULL,
+    PUSH,
+    STAGE_ALL,
+    COMMIT,
     RESET_ZOOM
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
-        | Knob 1: Zoom in/out     |            | Knob 2: Vol Dn/Up |
-        | Press: Reset Zoom Level | Screenshot | Press: Mute       |
-        | Previous Track          | Play/Pause | Next Track        |
-        | Hold: Layer 2           | Clean      | Rebuild          |
+        | Knob 1: Zoom in/out     |                                  | Knob 2: Vol Dn/Up                 |
+        | Press: Reset Zoom Level | Screenshot                       | Press: Mute                       |
+        | Previous Track          | Play/Pause                       | Next Track                        |
+        | Hold: Layer 2           | Go Left Through Virtual Desktops | Go Right Through Virtual Desktops |
      */
     [0] = LAYOUT(
         RESET_ZOOM, SCREENSHOT, KC_MUTE, 
         KC_MPRV, KC_MPLY, KC_MNXT, 
-        MO(1), CLEAN, REBUILD),
+        MO(1), RELEASE_GO_LEFT, RELEASE_GO_RIGHT),
     /*
-        | N/A            | N/A                              | N/A                               |
-        | N/A            | N/A                              | N/A                               |
-        | Held: Layer 2  | Go Left Through Virtual Desktops | Go Right Through Virtual Desktops |
+        | N/A            | Push      | N/A     |
+        | Pull           | Stage All | Commit  |
+        | Held: Layer 2  | Clean     | Rebuild |
      */
     [1] = LAYOUT(
-        KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, 
-        KC_TRANSPARENT, RELEASE_GO_LEFT, RELEASE_GO_RIGHT),
+        KC_NO, PUSH, KC_NO,
+        PULL, STAGE_ALL, COMMIT, 
+        KC_TRANSPARENT, CLEAN, REBUILD),
 };
 
 void encoder_update_user(uint8_t index, bool clockwise) {
@@ -98,6 +102,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case REBUILD:
             if (record->event.pressed) {
                 SEND_STRING(SS_RCTL(SS_RSFT(SS_TAP(X_B))));
+            }
+            break;
+        case PULL:
+            if (record->event.pressed) {
+                SEND_STRING(SS_RCTL(SS_RSFT(SS_LALT(SS_TAP(X_L)))));
+            }
+            break;
+        case PUSH:
+            if (record->event.pressed) {
+                SEND_STRING(SS_RCTL(SS_RSFT(SS_LALT(SS_TAP(X_P)))));
+            }
+            break;
+        case STAGE_ALL:
+            if (record->event.pressed) {
+                SEND_STRING(SS_RCTL(SS_RSFT(SS_LALT(SS_TAP(X_S)))));
+            }
+            break;
+        case COMMIT:
+            if (record->event.pressed) {
+                SEND_STRING(SS_RCTL(SS_TAP(X_ENTER)));
             }
             break;
     }
