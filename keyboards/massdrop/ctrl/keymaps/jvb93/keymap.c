@@ -18,7 +18,7 @@ static const char * sendstring_commands[] = {
     "git remote add ",
     "git fetch ",
     "git pull ",
-    "git push ",
+    SS_RCTL(SS_RSFT(SS_LALT(SS_TAP(X_P)))),
     "git commit ",
     "git status ",
     "git log ",
