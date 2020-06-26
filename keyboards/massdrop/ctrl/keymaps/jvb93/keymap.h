@@ -50,8 +50,6 @@ enum layout_names {
     _FL,         // Function Layout: The function key activated layout with default functions and some added ones
     _ML,         // Mouse Layout: Mouse Keys and mouse movement
     _GL,         // GIT Layout: GIT shortcuts and macros
-    _VL,         // VIM Layout: VIM shorcuts and macros
-    _YL,         // Yakuake Layout: Yakuake drop-down terminal shortcuts and macros
     _EL,         // KDE Layout: Shortcuts for KDE desktop using default KDE shortcuts settings
 };
 

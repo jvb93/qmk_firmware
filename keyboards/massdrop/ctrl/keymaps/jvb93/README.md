@@ -18,7 +18,7 @@ This keymap is here to show some love to the MD Ctrl.
 
 ### Git Layer
 
-![Git Layer](https://imgur.com/WMMM0zz.png)
+![Git Layer](https://i.imgur.com/PLWIa4x.png)
 
 ## Features
 
