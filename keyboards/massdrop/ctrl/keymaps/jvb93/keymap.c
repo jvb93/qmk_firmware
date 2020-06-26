@@ -7,21 +7,12 @@ static uint8_t key_event_counter;       // This counter is used to check if any 
 static const char *sendstring_commands[] = {
     SS_RCTL(SS_RSFT(SS_TAP(X_N))),          // fork init repo
     SS_RCTL(SS_TAP(X_N)),                   // fork clone repo
-    "git config --global ",
-    "git add ",
-    "git diff ",
-    "git reset ",
-    "git rebase ",
     SS_RCTL(SS_RSFT(SS_TAP(X_N))),          // fork create new branch
-    "git checkout ",
-    "git merge ",
-    "git remote add ",
     SS_RCTL(SS_RSFT(SS_LALT(SS_TAP(X_F)))),  // fork fetch
     SS_RCTL(SS_RSFT(SS_LALT(SS_TAP(X_L)))),  // fork pull
     SS_RCTL(SS_RSFT(SS_LALT(SS_TAP(X_P)))),  // fork push
     SS_RCTL(SS_TAP(X_ENTER)),                // fork commit
     SS_RCTL(SS_RSFT(SS_LALT(SS_TAP(X_S)))),  // fork stage all
-    "git log ",
 };
 
 //Associate our tap dance key with its functionality
@@ -69,9 +60,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_GL] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, G_REMTE, G_RESET, G_REBAS, _______, G_INIT,  _______, G_PULL,  G_PUSH,  _______, _______, _______, _______, _______,
-        _______, G_ADD,   G_STAT,  G_DIFF,  G_FETCH, _______, _______, _______, _______, G_LOG,   _______, _______, _______,
-        _______, G_CONF,  G_CHECK, G_CLONE, G_COMM,  G_BRANH, _______, G_MERGE, _______, _______, _______, _______,                            _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, G_INIT,  _______, G_PULL,  G_PUSH,  _______, _______, _______, _______, _______,
+        _______, _______, G_STAGE, _______, G_FETCH, _______, _______, _______, _______, _______,   _______, _______, _______,
+        _______, _______, _______, G_CLONE, G_COMM,  G_BRANH, _______, _______, _______, _______, _______, _______,                            _______,
         _______, _______, _______,                   _______,                            _______, TG(_GL), _______, _______,          _______, _______, _______
     ),
     // This layout doesn't have custom keycodes for now, just custom LED config
@@ -144,9 +135,9 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
     [_GL] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, BLUE,    AZURE,   AZURE,   _______, CYAN,    _______, TURQ,    PURPLE,  _______, _______, _______, _______, _______,
-        _______, CORAL,   GREEN,   GREEN,   TURQ,    _______, _______, _______, _______, GREEN,   _______, _______, _______,
-        _______, CYAN,    CHART,   TURQ,    ORANGE,  CHART,   _______, CHART,   _______, _______, _______, _______,                            _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, CYAN,    _______, AZURE,   PURPLE,  _______, _______, _______, _______, _______,
+        _______, _______, GREEN,   _______,   TURQ,  _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, TURQ,    ORANGE,  CHART,   _______, _______, _______, _______, _______, _______,                            _______,
         _______, _______, _______,                   _______,                            _______, PINK,    _______, _______,          _______, _______, _______
     },
     [_VL] = {
@@ -346,7 +337,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 rgb_time_out_fast_mode_enabled = !rgb_time_out_fast_mode_enabled;
                 return false;
-            case G_INIT ... G_LOG:
+            case G_INIT ... G_STAGE:
                 send_string_with_delay(sendstring_commands[keycode - G_INIT], 5);
                 return false;
         }

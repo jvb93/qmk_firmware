@@ -82,19 +82,10 @@ enum string_macro_keycodes {
     // The start of this enum should always be equal to end of ctrl_keycodes + 1
     G_INIT = TERMINAL + 1, // git init
     G_CLONE,               // git clone
-    G_CONF,                // git config --global
-    G_ADD,                 // git add
-    G_DIFF,                // git diff
-    G_RESET,               // git reset
-    G_REBAS,               // git rebase
     G_BRANH,               // git branch
-    G_CHECK,               // git checkout
-    G_MERGE,               // git merge
-    G_REMTE,               // git remote add
     G_FETCH,               // git fetch
     G_PULL,                // git pull
     G_PUSH,                // git push
     G_COMM,                // git commit
-    G_STAT,                // git status
-    G_LOG,                 // git log
+    G_STAGE                // git stage all
 };
