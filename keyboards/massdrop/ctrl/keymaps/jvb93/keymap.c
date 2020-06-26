@@ -179,6 +179,8 @@ void matrix_init_user(void) {
     debug_keyboard=true;
     debug_mouse=true;
 
+    rgblight_sethsv(HSV_WHITE);
+
     idle_second_counter = 0;                            // Counter for number of seconds keyboard has been idle.
     key_event_counter = 0;                              // Counter to determine if keys are being held, neutral at 0.
     rgb_time_out_seconds = RGB_DEFAULT_TIME_OUT;        // RGB timeout initialized to its default configure in keymap.h
