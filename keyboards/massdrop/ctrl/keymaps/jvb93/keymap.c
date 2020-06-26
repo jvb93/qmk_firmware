@@ -4,23 +4,23 @@ static uint16_t idle_timer;             // Idle LED timeout timer
 static uint8_t idle_second_counter;     // Idle LED seconds counter, counts seconds not milliseconds
 static uint8_t key_event_counter;       // This counter is used to check if any keys are being held
 
-static const char * sendstring_commands[] = {
-    "git init ",
-    "git clone ",
+static const char *sendstring_commands[] = {
+    SS_RCTL(SS_RSFT(SS_TAP(X_N))),          // fork init repo
+    SS_RCTL(SS_TAP(X_N)),                   // fork clone repo
     "git config --global ",
     "git add ",
     "git diff ",
     "git reset ",
     "git rebase ",
-    "git branch -b \"",
+    SS_RCTL(SS_RSFT(SS_TAP(X_N))),          // fork create new branch
     "git checkout ",
     "git merge ",
     "git remote add ",
-    "git fetch ",
-    "git pull ",
-    SS_RCTL(SS_RSFT(SS_LALT(SS_TAP(X_P)))),
-    "git commit ",
-    "git status ",
+    SS_RCTL(SS_RSFT(SS_LALT(SS_TAP(X_F)))),  // fork fetch
+    SS_RCTL(SS_RSFT(SS_LALT(SS_TAP(X_L)))),  // fork pull
+    SS_RCTL(SS_RSFT(SS_LALT(SS_TAP(X_P)))),  // fork push
+    SS_RCTL(SS_TAP(X_ENTER)),                // fork commit
+    SS_RCTL(SS_RSFT(SS_LALT(SS_TAP(X_S)))),  // fork stage all
     "git log ",
 };
 
