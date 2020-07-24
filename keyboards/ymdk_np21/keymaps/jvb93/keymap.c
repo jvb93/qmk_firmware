@@ -7,7 +7,9 @@ enum custom_keycodes {
   NP = SAFE_RANGE,
   ML,
   RELEASE_GO_LEFT,
-  RELEASE_GO_RIGHT
+  RELEASE_GO_RIGHT,
+  ZOOM_IN,
+  ZOOM_OUT
 };
 
 
@@ -26,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ML] = LAYOUT_ortho_6x4(
     _______        , _______, _______         , _______,
     _______        , _______, _______         , _______,
-    _______        , BL_INC , _______         , KC_VOLU,
+    ZOOM_OUT       , BL_INC , ZOOM_IN         , KC_VOLU,
     RELEASE_GO_LEFT, BL_TOGG, RELEASE_GO_RIGHT, KC_VOLU,
     _______        , BL_DEC , _______         , KC_VOLD,
     _______        , _______, _______         , KC_VOLD
@@ -44,6 +46,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case RELEASE_GO_RIGHT:
             if (record->event.pressed) {
                 SEND_STRING(SS_LCTL(SS_LALT(SS_TAP(X_HOME))) SS_LCTL(SS_RWIN(SS_TAP(X_RIGHT))));
+            }
+            break;
+        case ZOOM_IN:
+            if (record->event.pressed) {
+              SEND_STRING(SS_LCTL(SS_TAP(X_EQUAL)));
+            }
+            break;
+        case ZOOM_OUT:
+            if (record->event.pressed) {
+              SEND_STRING(SS_LCTL(SS_TAP(X_MINUS)));
             }
             break;
     }
